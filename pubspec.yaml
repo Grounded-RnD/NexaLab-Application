@@ -38,6 +38,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   antdesign_icons: ^0.0.3
   table_calendar: ^3.0.4
+  google_fonts: ^5.0.0
 
 dev_dependencies:
   flutter_test:

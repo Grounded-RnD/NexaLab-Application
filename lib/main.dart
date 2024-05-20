@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:nexa_lab/homepage.dart';
 import 'package:nexa_lab/peminjaman.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -29,6 +31,9 @@ class MyApp extends StatelessWidget {
           800: Color(0xFF32254A),
           900: Color(0xFF1E1A17),
         }),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+        ),
             ),
       home: MyHomePage(),
     );
