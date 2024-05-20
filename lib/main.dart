@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:nexa_lab/akun.dart';
 import 'package:nexa_lab/homepage.dart';
 import 'package:nexa_lab/peminjaman.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
-            ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -55,7 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<bool> _badgeShows = List<bool>.generate(5, (index) => true);
 
-  List<Widget> index = [HomePage(), Peminjaman(), HomePage(), HomePage(), HomePage()];
+  List<Widget> index = [
+    HomePage(),
+    Peminjaman(),
+    Akun(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Color(0xff040307),
       items: [
         CustomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.window_rounded),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.door_sliding),
+          icon: Icon(Icons.home),
         ),
         CustomNavigationBarItem(
           icon: Icon(Icons.account_circle),
@@ -145,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _currentIndex = index;
         });
       },
+      // Set the height of the navigation bar
     );
   }
-
 }

@@ -10,6 +10,6 @@ class Akun extends StatefulWidget {
 class _AkunState extends State<Akun> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }
