@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(
-                      Icons.pie_chart,
+                      Icons.pie_chart_rounded,
                       size: 50,
                       color: Colors.white,
                     ),
@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   width: 170, // Set the width of the container
                   height: 160, // Set the height of the container
+                  child: Center(),
                 ),
                 SizedBox(
                   width: 10,
@@ -121,6 +122,33 @@ class _HomePageState extends State<HomePage> {
                       ),
                       width: 186, // Set the width of the container
                       height: 73, // Set the height of the container
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Date',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                '14/2/2024',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 12,
@@ -133,6 +161,33 @@ class _HomePageState extends State<HomePage> {
                       ),
                       width: 186, // Set the width of the container
                       height: 73, // Set the height of the container
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Time Until',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                '01:00 PM',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 )
@@ -187,21 +242,51 @@ class _HomePageState extends State<HomePage> {
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.only(bottom: 10, top: 0),
+                margin: EdgeInsets.only(bottom: 10, top: 3),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(44, 44, 44, 100),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                width: 370, // Set the width of the container
-                height: 280, // Set the height of the container
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                width: 370,
+                height: 280,
+                child: Column(
                   children: [
-                    SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [],
+                    Row(
+                      children: [
+                        Text(
+                          'Attachment',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                    Center(
+                      child: Image.asset(
+                        'images/3.png',
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        // final result = await FilePicker.platform.pickFiles();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10), // Adjust the padding
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20), // Adjust the border radius
+                        ),
+                        primary: Color.fromRGBO(
+                            110, 69, 227, 100), // Set the button color
+                      ),
+                      child: Text(
+                        'Browser',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),
