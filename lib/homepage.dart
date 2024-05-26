@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:math';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,9 +35,9 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 12),
                   child: const Text(
-                    'Hello Ryo\nReady to use lab',
+                    'Hello Ryo\nReady to use lab sdc',
                     style: TextStyle(fontSize: 14),
                   ),
                 ),
@@ -114,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       width: 170, // Set the width of the container
                       height: 160, // Set the height of the container
+                      child: Center(),
                     ),
                     const SizedBox(
                       width: 10,
@@ -274,18 +279,21 @@ class _HomePageState extends State<HomePage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            // final result = await FilePicker.platform.pickFiles();
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+
+                            if (result != null) {
+                              String? filePath = result.files.single.path;
+                              // Do something with the file path
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 10), // Adjust the padding
+                                horizontal: 30, vertical: 10),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20), // Adjust the border radius
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            primary: Color.fromRGBO(
-                                110, 69, 227, 100), // Set the button color
+                            primary: Color.fromRGBO(110, 69, 227, 100),
                           ),
                           child: Text(
                             'Browser',
