@@ -128,13 +128,16 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Color(0xff040307),
       items: [
         CustomNavigationBarItem(
-          icon: Icon(Icons.window_rounded),
+          icon: Icon(Icons.window_outlined),
+          selectedIcon: Icon(Icons.window_rounded),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
+          icon: Icon(Icons.account_circle_outlined),
+          selectedIcon: Icon(Icons.account_circle),
         ),
         // CustomNavigationBarItem(
         //   icon: Icon(Icons.search),
