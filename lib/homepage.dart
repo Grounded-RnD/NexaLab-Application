@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'class/DatabaseHelper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,6 +47,28 @@ class _HomePageState extends State<HomePage> {
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  File? _imageFile;
+
+  void _pickImage() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null) {
+      setState(() {
+        _imageFile = File(result.files.single.path!);
+      });
+      // Simpan jalur file ke database
+      await DatabaseHelper().insertImage(result.files.single.path!);
+    }
+  }
+
+  Future<List<String>> _loadImages() async {
+    List<Map<String, dynamic>> imageRecords =
+        await DatabaseHelper().getImages();
+    return imageRecords.map((record) => record['path'] as String).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(left: 13),
           child: Icon(
             Icons.account_circle,
-            size: 40,
+            size: 28,
           ),
         ),
         backgroundColor: Colors.black,
@@ -85,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(right: 13),
             child: Icon(
               Icons.notifications_rounded,
-              size: 40,
+              size: 28,
             ),
           )
         ],
@@ -101,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Center(
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 12, top: 30),
+                  margin: const EdgeInsets.only(bottom: 12, top: 45),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(44, 44, 44, 100),
@@ -114,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Icon(
                         Icons.pie_chart,
-                        size: 50,
+                        size: 35,
                         color: Colors.white,
                       ),
                       SizedBox(width: 12),
@@ -133,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                             'Laboratorium 5',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -154,41 +175,40 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     width: 170, // Set the width of the container
-                    height: 160, // Set the height of the container
+                    height: 170, // Set the height of the container
                     child: Center(
-                      child: Container(
-                        width: 200,
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(110, 69, 227, 100)
-                              .withOpacity(0.2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                formatTime(remainingTime),
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
+                      // child: Container(
+                      //   width: 200,
+                      //   height: 200,
+                      //   decoration: BoxDecoration(
+                      //     color: Color.fromRGBO(110, 69, 227, 100),
+                      //     shape: BoxShape.circle,
+                      //   ),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              formatTime(remainingTime),
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white54,
                               ),
-                              Text(
-                                'LEFT',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              'Left',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white54,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+                  // ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -201,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           width: 186, // Set the width of the container
-                          height: 73, // Set the height of the container
+                          height: 80, // Set the height of the container
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -229,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ])),
                       const SizedBox(
-                        height: 14,
+                        height: 10,
                       ),
                       Container(
                           padding: const EdgeInsets.all(10),
@@ -238,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           width: 186, // Set the width of the container
-                          height: 73, // Set the height of the container
+                          height: 80, // Set the height of the container
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -287,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Icon(
                         Icons.account_box_rounded,
-                        size: 50,
+                        size: 35,
                         color: Colors.white,
                       ),
                       SizedBox(width: 12),
@@ -306,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                             'Sir Bagus',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -324,8 +344,8 @@ class _HomePageState extends State<HomePage> {
                     color: const Color.fromRGBO(44, 44, 44, 100),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  width: 370, // Set the width of the container
-                  height: 280, // Set the height of the container
+                  width: 370,
+                  height: 280,
                   child: Column(
                     children: [
                       Row(
@@ -333,37 +353,32 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'Attachment',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
                           )
                         ],
                       ),
-                      Center(
-                        child: Image.asset(
-                          'images/3.png',
+                      Expanded(
+                        child: Center(
+                          child: _imageFile != null
+                              ? Image.file(_imageFile!)
+                              : Image.asset('images/3.png'),
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles();
-
-                          if (result != null) {
-                            String? filePath = result.files.single.path;
-                            // Do something with the file path
-                          }
-                        },
+                        onPressed: _pickImage,
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          primary: Color.fromRGBO(110, 69, 227, 100),
+                          primary: Color.fromRGBO(110, 69, 227, 1),
                         ),
                         child: Text(
-                          'Browser',
+                          'Browse',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
@@ -371,10 +386,31 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DisplayImagesScreen extends StatelessWidget {
+  final List<String> images;
+
+  DisplayImagesScreen({required this.images});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Uploaded Images'),
+      ),
+      body: ListView.builder(
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          return Image.file(File(images[index]));
+        },
       ),
     );
   }
